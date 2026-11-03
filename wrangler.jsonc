@@ -1,0 +1,11 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "sdahymnlibrary-api",
+  "main": "worker/index.js",
+  "compatibility_date": "2026-11-03",
+  "workers_dev": true,
+  "vars": {
+    "ALLOWED_ORIGINS": "https://vennise.github.io,http://127.0.0.1:8090,http://localhost:8090"
+  },
+  "observability": { "enabled": false }
+}

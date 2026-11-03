@@ -1,6 +1,6 @@
 # SDAHymnLibrary
 
-Search hymn titles and numbers, open full-screen lyrics, and play your prerecorded worship program. The worship program is self-contained and ready for **GitHub Pages**.
+Search hymn titles and numbers, open full-screen lyrics, and play your prerecorded worship program. **GitHub Pages** serves the website and worship recordings; **Cloudflare Workers Free** retrieves other hymns’ lyrics and audio on demand. No Python hosting is required.
 
 ## What is included
 
@@ -30,7 +30,7 @@ Alternatively, deploy the static files to any static host. There is no npm insta
 | Seven worship recordings and confirmed lyrics | Yes |
 | Title/number searching, including typo matching | Yes, using the bundled catalog snapshot |
 | Other hymns' lyrics and recordings | Open the selected hymn on hymnal.net |
-| In-app online hymn lyrics/audio | Requires an optional separately hosted Python backend |
+| In-app online hymn lyrics/audio | Uses the Cloudflare Worker configured in `config.js` |
 
 Hosting is not an offline download feature: a new browser visit needs internet to load the website and recordings. Local static hosting can play the bundled program without internet. There is no service worker or guaranteed browser-offline storage yet.
 
@@ -53,15 +53,39 @@ python -m http.server 8091
 
 Open **http://127.0.0.1:8091**. Online API requests fall back to the bundled title index when this simple server has no backend.
 
-## Optional online hymn backend
+## Cloudflare Workers Free backend
 
-`server.py` retrieves and caches the live hymnal.net catalog, lyrics, and recording metadata. It streams remote audio through a range-aware proxy. This is needed for in-app playback of hymns outside the bundled worship program.
+The deployed API is **https://sdahymnlibrary-api.vennise.workers.dev/**. Its `/health` endpoint reports readiness. The frontend connects to it through `config.js`.
 
-1. Run `python server.py --host 0.0.0.0 --port 8090` on a Python-capable host behind HTTPS. Disable reverse-proxy buffering on `/api/audio/*`.
-2. Set the backend's `HYMN_ALLOWED_ORIGIN` environment variable to your frontend origin, e.g. `https://USERNAME.github.io` (no repository path).
-3. In `config.js`, set `apiBase` to the HTTPS backend URL, e.g. `https://hymns.example.com/`.
+- `/api/catalog` serves the bundled title index without scraping during search.
+- `/api/song/h/1` retrieves the hymn page and parses structured lyrics, fallback stanza text, and available recordings with Cloudflare's native `HTMLRewriter`.
+- `/api/audio/h/1/0` streams a selected source recording and supports byte ranges for seeking.
+- Metadata uses Cloudflare's built-in edge Cache API; no paid KV, database, or storage binding is needed. Audio is streamed rather than buffered in Worker memory.
+- CORS allows this GitHub Pages origin and local port 8090. Change `ALLOWED_ORIGINS` in `wrangler.jsonc` if moving the frontend.
 
-By default, localhost attempts its same-origin backend; public static deployments use bundled worship playback and title search. When a configured backend is unavailable, title search falls back to the static index. The worship program always reads bundled project files.
+### Updating the Worker
+
+Requires a current Node.js LTS version and a Cloudflare account:
+
+```powershell
+npm ci
+npm run test:worker
+npm run worker:check
+npm run worker:login
+npm run worker:deploy
+```
+
+If a browser callback is unavailable, use `npx wrangler login --device`. On a new Cloudflare account, open **Workers & Pages** and finish free `workers.dev` subdomain setup. A newly registered subdomain can need time for HTTPS provisioning.
+
+The deploy command prints the API URL. Put it in `config.js` as `apiBase` and increment the config script's version in `index.html`, then push the frontend changes to GitHub. Cloudflare credentials are kept outside the repository; `.dev.vars`, `.wrangler`, and `node_modules` are ignored. No secrets or tokens belong in `config.js`.
+
+Free-plan requests and CPU limits still apply. See the [Cloudflare dashboard](https://dash.cloudflare.com/) for actual usage. The service uses no scheduled tasks or background polling. Cache entries can be evicted, in which case a song is fetched again from the source.
+
+### Local development and Python alternative
+
+Run `npm run worker:dev` to test the Worker locally on port 8787. Point `apiBase` at it and add your frontend origin to `ALLOWED_ORIGINS` for that test. The existing Python server remains available for local use: set `apiBase` to `''` to let localhost use it automatically. Python hosting is optional; a separately hosted Python backend can still be connected by setting its `HYMN_ALLOWED_ORIGIN` and `apiBase`.
+
+When a configured backend is unavailable, title search falls back to the static index. The worship program always reads bundled project files and does not depend on Cloudflare.
 
 Source availability and markup changes can affect the online adapter. Verse highlighting is available only where a recording supplies stanza timestamps. Line-level timing and native Windows packaging are not implemented.
 
@@ -83,6 +107,8 @@ python -m unittest discover -s tests -v
 node --check app.js
 node --check worship.js
 node --test tests/search.test.js
+npm run test:worker
+npm run worker:check
 ```
 
 Song text and audio retain their original attribution. Online hymns link to hymnal.net; worship lyric sections include their source URLs in `data/worship.json`.

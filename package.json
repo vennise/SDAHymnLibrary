@@ -1,0 +1,20 @@
+{
+  "name": "sdahymnlibrary",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "worker:dev": "wrangler dev",
+    "worker:login": "wrangler login",
+    "worker:deploy": "wrangler deploy",
+    "worker:check": "wrangler deploy --dry-run --outdir .worker-build",
+    "test:worker": "vitest run --config worker/vitest.config.js"
+  },
+  "devDependencies": {
+    "@cloudflare/vitest-plugin": "^1.5.1",
+    "vitest": "^4.1.0",
+    "wrangler": "^4.0.0"
+  },
+  "dependencies": {
+    "entities": "^7.0.0"
+  }
+}

@@ -1,4 +1,3 @@
-// Optional HTTPS Python backend URL, for example "https://hymns.example.com/".
-// Leave empty for standalone GitHub Pages worship playback and title search.
-// On localhost, the app also tries the local Python backend automatically.
-window.HYMN_CONFIG = { apiBase: '' };
+// Cloudflare Workers Free backend for online hymn lyrics and recordings.
+// Set apiBase to '' to use only bundled worship playback and title search.
+window.HYMN_CONFIG = { apiBase: 'https://sdahymnlibrary-api.vennise.workers.dev/' };

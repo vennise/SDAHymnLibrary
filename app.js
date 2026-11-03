@@ -11,7 +11,7 @@ audio.volume = .8;
 let toastTimer;
 function toast(message) { $('#toast').textContent = message; $('#toast').hidden = false; clearTimeout(toastTimer); toastTimer = setTimeout(() => { $('#toast').hidden = true; }, 5000); }
 async function fetchJSON(path) { const response = await fetch(path); if (!response.ok) throw new Error('Unable to load the requested file.'); return response.json(); }
-function apiURL(path) { if (!backendBase) throw new Error('Online hymn playback needs a connected Python backend.'); return new URL(path.replace(/^\//, ''), backendBase).href; }
+function apiURL(path) { if (!backendBase) throw new Error('Online hymn playback needs a connected hymn service.'); return new URL(path.replace(/^\//, ''), backendBase).href; }
 async function api(path) { const response = await fetch(apiURL(path)); if (!response.ok) { let message = 'Unable to reach the song library.'; try { message = (await response.json()).error || message; } catch {} throw new Error(message); } return response.json(); }
 function matching() {
   return HymnSearch.searchSongs(state.songs, state.query);
