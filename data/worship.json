@@ -1,0 +1,84 @@
+{
+  "songs": [
+    {
+      "id": "1",
+      "title": "As We Gather → Glory to the Father",
+      "media": "media/worship/1.mp3",
+      "sections": [
+        {
+          "title": "As We Gather",
+          "verses": [
+            "As we gather may Your\nSpirit work within us\nAs we gather may\nWe glorify Your name\nKnowing well that as\nOur hearts begin to worship\nWe'll be blessed\nBecause we came\nWe'll be blessed\nBecause we came"
+          ],
+          "source": "https://theworshipsongs.com/parts/lyrics/As-We-Gather-Lyrics.html"
+        },
+        {
+          "title": "Glory to the Father",
+          "verses": [],
+          "source": ""
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "title": "Now, Dear Lord, as We Pray",
+      "media": "media/worship/2.mp3",
+      "sections": [
+        {
+          "title": "",
+          "verses": [
+            "Now, dear Lord, as we pray, take our hearts and minds far away\nFrom the press of the world all around\nTo your throne where grace does abound.\nMay our lives be transform’d by Your love,\nMay our souls be refreshed from above.\nAt this moment, let people everywhere\nJoin us now as we come to You in prayer."
+          ],
+          "source": "https://adventisthymns.com/en/1985/lyrics/671/as-we-come-to-you-in-prayer"
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "title": "Almighty Father, Hear Our Prayer",
+      "media": "media/worship/3.mp3",
+      "sections": [
+        {
+          "title": "",
+          "verses": [
+            "Almighty Father, hear our prayer,\nand bless all souls that wait before Thee.\nAmen."
+          ],
+          "source": "https://adventisthymns.com/en/1985/lyrics/693/almighty-father"
+        }
+      ]
+    },
+    {
+      "id": "5",
+      "title": "Offering Song",
+      "media": "media/worship/5.mp3",
+      "sections": []
+    },
+    {
+      "id": "6",
+      "title": "Amen F",
+      "media": "media/worship/6.mp3",
+      "sections": []
+    },
+    {
+      "id": "7",
+      "title": "We Have This Hope",
+      "media": "media/worship/7.mp3",
+      "sections": [
+        {
+          "title": "",
+          "verses": [
+            "We have this hope that burns within our hearts,\nHope in the coming of the Lord.\nWe have this faith that Christ alone imparts,\nFaith in the promise of His Word.\nWe believe the time is here,\nWhen the nations far and near\nShall awake, and shout, and sing\nHallelujah! Christ is King!\nWe have this hope that burns within our hearts,\nHope in the coming of the Lord.",
+            "We are united in Jesus Christ our Lord.\nWe are united in His love.\nLove for the waiting people of the world.\nPeople who need our Savior’s love.\nSoon the heav’ns will open wide,\nChrist will come to claim His bride.\nAll the universe will sing\nHallelujah! Christ is King!\nWe have this hope, this faith, and God’s great love\nWe are united in Christ."
+          ],
+          "source": "https://adventisthymns.com/en/1985/lyrics/214/we-have-this-hope"
+        }
+      ]
+    },
+    {
+      "id": "8",
+      "title": "Silent Prayer",
+      "media": "media/worship/8.mp3",
+      "sections": []
+    }
+  ]
+}
