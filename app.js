@@ -137,4 +137,23 @@ async function loadCatalog() {
 }
 $('#retry-catalog').onclick = loadCatalog;
 if ('mediaSession' in navigator) { navigator.mediaSession.setActionHandler('play', play); navigator.mediaSession.setActionHandler('pause', () => audio.pause()); navigator.mediaSession.setActionHandler('previoustrack', () => step(-1)); navigator.mediaSession.setActionHandler('nexttrack', () => step(1)); }
+// Both players share the same compact preference without replacing media controls.
+let playerCompact = saved('hymn-player-compact', true);
+const playerSizeButtons = [...document.querySelectorAll('.player')].map(player => {
+  const button = player.querySelector('.player-size-toggle') || element('button', 'player-size-toggle icon-button');
+  button.type = 'button'; button.setAttribute('aria-controls', player.id);
+  player.prepend(button);
+  button.onclick = () => { playerCompact = !playerCompact; store('hymn-player-compact', playerCompact); updatePlayerSize(); };
+  return button;
+});
+function updatePlayerSize() {
+  document.documentElement.classList.toggle('player-compact', playerCompact);
+  for (const button of playerSizeButtons) {
+    button.textContent = playerCompact ? '⌃' : '⌄';
+    button.title = playerCompact ? 'Expand player' : 'Shrink player';
+    button.setAttribute('aria-label', button.title);
+    button.setAttribute('aria-expanded', String(!playerCompact));
+  }
+}
+updatePlayerSize();
 render(); loadCatalog();

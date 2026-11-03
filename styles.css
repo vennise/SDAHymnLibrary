@@ -1,4 +1,30 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Libre+Caslon+Display&display=swap');
+.player .player-size-toggle{position:absolute;right:14px;top:10px;z-index:1;border:1px solid var(--line);border-radius:8px;background:var(--paper);font-size:21px;line-height:1}
+.player .player-heading{padding-right:42px}
+#worship-player .worship-player-inner{padding-right:68px}
+body.has-song #search-page{padding-bottom:calc(var(--player-height) + 34px)}
+:root.player-compact{--player-height:68px}
+.player-compact .player .player-size-toggle{top:14px}
+.player-compact .player .player-inner,.player-compact #worship-player .worship-player-inner{padding:11px 68px 11px 20px;max-width:1100px}
+.player-compact .player .player-heading,.player-compact .player #repeat,.player-compact .player .volume,.player-compact #worship-original{display:none}
+.player-compact .player .player-controls{flex-wrap:nowrap;gap:18px}
+.player-compact .player .timeline{min-width:0;order:0}
+.player-compact .player .play-button{height:44px;min-width:85px}
+.player-compact #worship-player .worship-player-inner{display:flex;align-items:center;gap:22px}
+.player-compact #worship-player .worship-playback{margin:0;gap:10px;flex-shrink:0}
+@media(max-width:700px){
+  .player .player-size-toggle{right:10px}
+  #worship-player .worship-player-inner{padding:16px 60px 16px 16px}
+  #worship-player .worship-playback{flex-wrap:wrap;gap:8px;margin-bottom:16px}
+  #worship-player .worship-playback .secondary{font-size:11px;padding:9px}
+  :root.player-compact{--player-height:100px}
+  .player-compact .player .player-inner,.player-compact #worship-player .worship-player-inner{padding:8px 60px 9px 14px}
+  .player-compact .player .player-controls{display:grid;grid-template-columns:1fr auto;gap:8px}
+  .player-compact .player .timeline{grid-column:1/-1;width:100%;order:2}
+  .player-compact .player .player-size-toggle{top:12px}
+  .player-compact #worship-player .worship-player-inner{display:grid;grid-template-columns:1fr;gap:8px}
+  .player-compact #worship-player .worship-playback{justify-content:flex-start;flex-wrap:nowrap;gap:8px}
+}
 #worship-font-controls{display:flex;align-items:center;gap:7px}.worship-list-play{flex-shrink:0;align-self:center;margin-right:17px}.worship-list .song-open{flex:1}.worship-list-play.play-button{min-width:92px}#worship-top-play.play-button{min-width:92px;height:39px}
 @media(max-width:700px){#worship-page .lyrics-toolbar{padding-inline:12px;gap:5px}#worship-font-controls{gap:1px}#worship-font-controls .icon-button{min-width:30px;font-size:12px}#worship-top-play.play-button{min-width:72px;height:35px;font-size:12px}.worship-list-play.play-button{min-width:67px;margin-right:10px;height:36px;font-size:11px}.worship-list .song-open{gap:8px;padding-inline:10px}.worship-list .worship-song-name{font-size:12px}.worship-list .result-arrow{display:none}.worship-list{padding:25px 17px}}
 .worship-launch{display:flex;align-items:center;gap:17px;width:100%;margin:27px 0 0;border:1px solid #d5dfc9;border-radius:11px;padding:20px;background:#edf2e5;text-align:left}.worship-launch-icon{font-size:30px;color:#71885d}.worship-launch strong{display:block;font-size:15px;font-weight:500}.worship-launch small{display:block;color:#869579;font-size:11px;margin-top:6px}.worship-launch>span:last-child{margin-left:auto;font-size:23px}.worship-open{overflow:hidden}#worship-page{position:fixed;inset:0;z-index:24;background:var(--paper);display:flex;flex-direction:column}#worship-song-view{padding-bottom:var(--player-height)}.worship-list{max-width:850px;width:100%;margin:auto;padding:35px;overflow-y:auto;flex:1}.worship-list h1{font-size:43px}.worship-list .song-row{margin-block:12px}.worship-song-name{flex:1;font-size:15px}.worship-section-title{font-family:Georgia,serif;font-size:23px;font-weight:400;margin:35px 18px 5px;color:#75876a}#worship-player{z-index:25}.worship-player-inner{max-width:900px;margin:auto;padding:24px 35px}.worship-playback{display:flex;align-items:center;justify-content:center;gap:15px;margin-bottom:22px}.worship-playback .volume{margin-left:auto}#worship-video{width:100%;max-height:52vh;background:#17291e;border-radius:9px;margin-top:25px}#worship-media-status{font-size:12px;color:#a16d50;line-height:1.8}#worship-list-status{font-size:12px;color:#899779}.worship-launch:focus-visible{outline:3px solid #ba9b56;outline-offset:4px}
