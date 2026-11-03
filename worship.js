@@ -77,7 +77,7 @@
     selected = index; const song = songs[index]; video.pause();
     $('#worship-list-view').hidden = true; $('#worship-song-view').hidden = false;
     $('#worship-player').hidden = false; $('#worship-font-controls').hidden = false;
-    $('#worship-back').textContent = '← Worship Program';
+    $('#worship-back').textContent = '← Worship Program Songs';
     $('#worship-title').textContent = song.title; $('#worship-lyrics').replaceChildren();
     $('#worship-media-status').textContent = ''; $('#worship-seek').disabled = true;
     $('#worship-elapsed').textContent = '0:00'; $('#worship-duration').textContent = '0:00'; $('#worship-seek').value = 0;
