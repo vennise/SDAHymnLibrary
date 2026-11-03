@@ -22,7 +22,7 @@
   function renderList() {
     const fragment = document.createDocumentFragment();
     for (const song of songs) {
-      const row = element('div', 'song-row');
+      const row = element('div', 'song-row'); row.dataset.songId = song.id;
       const button = element('button', 'song-open'); button.type = 'button';
       button.append(element('span', 'song-number', song.id), element('span', 'worship-song-name', song.title), element('span', 'result-arrow', '›'));
       button.onclick = () => selectLocal(songs.indexOf(song));
@@ -33,6 +33,7 @@
       row.append(button, start); fragment.append(row);
     }
     $('#worship-songs').replaceChildren(fragment);
+    HymnMotion.rows($('#worship-songs'));
   }
 
   async function openProgram() {
@@ -58,6 +59,7 @@
     $('#worship-back').textContent = '← Back to search';
     $('#worship-list-view').scrollTop = 0;
     $('#worship-back').focus({ preventScroll: true });
+    HymnMotion.page($('#worship-list-view')); HymnMotion.rows($('#worship-songs')); HymnMotion.rise($('#worship-page .lyrics-toolbar'));
   }
 
   function closeProgram() {
@@ -66,6 +68,7 @@
     document.body.classList.remove('worship-open'); $('#search-page').hidden = false;
     $('#player').hidden = !state.selected; $('#open-worship').focus({ preventScroll: true });
     mediaActions(false);
+    HymnMotion.page($('#search-page'));
     if ('mediaSession' in navigator && 'MediaMetadata' in window) navigator.mediaSession.metadata = state.detail ? new MediaMetadata({ title: state.detail.title, artist: names[state.selected.type], album: 'Hymn Library' }) : null;
   }
 
@@ -91,6 +94,7 @@
       if (section.title) $('#worship-lyrics').append(element('h2', 'worship-section-title', section.title));
       for (const text of section.verses) $('#worship-lyrics').append(element('div', 'verse', text));
     }
+    HymnMotion.page($('#worship-song-view')); HymnMotion.rise($('#worship-player')); HymnMotion.rise($('#worship-page .lyrics-toolbar'));
   }
 
   async function playLocal() {

@@ -163,7 +163,7 @@ class Handler(SimpleHTTPRequestHandler):
         super().end_headers()
 
     def is_public_file(self, path):
-        return path in ('/', '/index.html', '/app.js', '/config.js', '/search.js', '/worship.js', '/styles.css', '/manifest.webmanifest', '/icon.svg', '/data/worship.json', '/data/catalog.json')
+        return path in ('/', '/index.html', '/app.js', '/config.js', '/search.js', '/worship.js', '/styles.css', '/motion.js', '/motion.css', '/manifest.webmanifest', '/icon.svg', '/data/worship.json', '/data/catalog.json')
 
     def json(self, value, status=200):
         body = json.dumps(value, ensure_ascii=False).encode('utf-8')

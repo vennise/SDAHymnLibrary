@@ -5,18 +5,18 @@
   <meta name="theme-color" content="#173f35"><meta name="description" content="Find a hymn by title or number, open the lyrics, and sing along.">
   <title>Hymn Library · Search & sing</title>
   <link rel="icon" href="./icon.svg" type="image/svg+xml"><link rel="manifest" href="./manifest.webmanifest">
-  <link rel="stylesheet" href="./styles.css?v=7"><script src="./config.js?v=2" defer></script><script src="./search.js?v=3" defer></script><script src="./app.js?v=7" defer></script><script src="./worship.js?v=4" defer></script>
+  <link rel="stylesheet" href="./styles.css?v=7"><link rel="stylesheet" href="./motion.css?v=1"><script src="./config.js?v=2" defer></script><script src="./search.js?v=3" defer></script><script src="./motion.js?v=1" defer></script><script src="./app.js?v=8" defer></script><script src="./worship.js?v=5" defer></script>
 </head>
 <body>
   <main id="search-page">
     <header class="topbar"><a class="brand" href="./"><span class="brand-icon">♫</span>Hymn Library</a><span id="connection">● Online library</span></header>
     <section class="search-section" aria-labelledby="search-title">
+      <button id="open-worship" class="worship-launch"><span class="worship-launch-icon" aria-hidden="true">♫</span><span class="worship-launch-copy"><span class="worship-launch-meta">Your service starts here</span><strong>Worship Program</strong><small>Your recordings, ready in service order.<br>7 recordings · Lyrics &amp; playback</small><span class="worship-launch-action">Open Worship Program <span class="worship-launch-arrow" aria-hidden="true">→</span></span></span></button>
       <p class="eyebrow">FIND A HYMN. MAKE ROOM FOR A SONG.</p>
       <h1 id="search-title">What would you like to sing?</h1>
       <p class="intro">Search a title or hymn number. Open a hymn to see the lyrics.</p>
       <form id="search-form" role="search"><label for="search" class="sr-only">Search hymn title or number</label><div class="search-box"><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="Enter hymn title or number" autocomplete="off" autofocus><button class="primary" type="submit">Search</button></div></form>
       <p id="catalog-status" role="status">Connecting to the hymn library…</p><button id="retry-catalog" class="text-button" hidden>Try again</button>
-      <button id="open-worship" class="worship-launch"><span class="worship-launch-icon" aria-hidden="true">♫</span><span><strong>Worship Program</strong><small>Your recordings, ready in service order</small></span><span aria-hidden="true">→</span></button>
       <div class="results-heading"><h2 id="library-title">Search for a hymn</h2><span id="results-count" role="status" aria-live="polite"></span></div>
       <div id="songs"></div>
       <div class="pagination"><button id="load-more" class="secondary" hidden>Show more results ↓</button></div>

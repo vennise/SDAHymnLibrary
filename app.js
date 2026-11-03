@@ -18,10 +18,11 @@ function matching() {
 }
 function element(tag, className, text) { const node = document.createElement(tag); if (className) node.className = className; if (text !== undefined) node.textContent = text; return node; }
 function render() {
+  const previous = new Set([...$('#songs').querySelectorAll('.song-row')].map(row => row.dataset.songId));
   const results = matching();
   const fragment = document.createDocumentFragment();
   for (const song of results.slice(0, state.limit)) {
-    const row = element('div', `song-row${state.selected?.id === song.id ? ' selected' : ''}`); row.dataset.type = song.type;
+    const row = element('div', `song-row${state.selected?.id === song.id ? ' selected' : ''}`); row.dataset.type = song.type; row.dataset.songId = song.id;
     const open = element('button', 'song-open'); open.type = 'button'; open.setAttribute('aria-label', `Open ${song.title}, ${names[song.type]} ${song.number}`);
     open.append(element('span', 'song-number', song.number));
     const info = element('span', 'song-info'); info.append(element('strong', '', song.title), element('small', '', `Hymn ${song.number} · ${names[song.type]}`)); open.append(info, element('span', 'result-arrow', '›'));
@@ -32,6 +33,7 @@ function render() {
   }
   if (!results.length) fragment.append(element('div', 'empty', !state.query ? 'Enter a hymn number or a few words from its title to get started.' : state.songs.length ? 'No matching titles or hymn numbers. Try fewer words or another title.' : 'Getting the hymn index ready. Your search will appear as soon as it loads.'));
   $('#songs').replaceChildren(fragment);
+  HymnMotion.rows($('#songs'), previous);
   $('#library-title').textContent = state.query ? 'Search results' : 'Search for a hymn';
   $('#results-count').textContent = state.query ? `${results.length.toLocaleString()} ${results.length === 1 ? 'match' : 'matches'}` : '';
   $('#load-more').hidden = results.length <= state.limit;
@@ -43,8 +45,8 @@ function showLyrics(show = true) {
   if (show && !state.selected) return;
   $('#lyrics-panel').hidden = !show; document.body.classList.toggle('lyrics-open', show);
   $('#search-page').hidden = show; $('#lyrics-toggle').setAttribute('aria-expanded', String(show));
-  if (show) $('#lyric-title').focus({ preventScroll: true });
-  else $('#search').focus({ preventScroll: true });
+  if (show) { $('#lyric-title').focus({ preventScroll: true }); HymnMotion.page($('#lyrics-panel')); }
+  else { $('#search').focus({ preventScroll: true }); HymnMotion.page($('#search-page')); }
 }
 async function detailFor(id) {
   if (state.details.has(id)) return state.details.get(id);
@@ -54,7 +56,8 @@ async function detailFor(id) {
 async function selectSong(song, autoplay = false) {
   const request = ++state.request;
   state.selected = song; state.detail = null; audio.pause(); audio.removeAttribute('src'); audio.load();
-  $('#player').hidden = false; document.body.classList.add('has-song'); $('.lyrics-scroll').scrollTop = 0;
+  const playerWasHidden = $('#player').hidden;
+  $('#player').hidden = false; if (playerWasHidden) HymnMotion.rise($('#player')); document.body.classList.add('has-song'); $('.lyrics-scroll').scrollTop = 0;
   $('#play').disabled = true; $('#seek').disabled = true; $('#player-favorite').disabled = false;
   $('#lyric-title').textContent = song.title; $('#lyric-collection').textContent = `${names[song.type]} · ${song.number}`;
   $('#playing-title').textContent = song.title; $('#playing-subtitle').textContent = 'Loading recording…';
@@ -72,6 +75,7 @@ async function selectSong(song, autoplay = false) {
     state.detail = detail; $('#lyric-title').textContent = detail.title; $('#lyric-meta').textContent = [names[song.type], `No. ${song.number}`, detail.key].filter(Boolean).join(' · ');
     for (const [index, text] of detail.lyrics.split(/\n\s*\n/).filter(Boolean).entries()) { const verse = element('div', 'verse'); verse.dataset.verse = index + 1; verse.append(element('span', 'verse-number', `VERSE ${index + 1}`), document.createTextNode(text)); $('#lyrics').append(verse); }
     if (!detail.lyrics) $('#lyrics').append(element('p', 'empty', 'Lyrics are not available for this hymn.'));
+    HymnMotion.words($('#lyric-title')); HymnMotion.rise($('#lyric-meta')); HymnMotion.lyrics($('#lyrics'));
     const recordings = detail.recordings;
     recordings.forEach((recording, index) => { const option = element('option', '', `${recording.kind === 'vocal' ? 'Vocal' : 'Instrumental'} · ${recording.label}`); option.value = index; $('#recording').append(option); });
     $('#recording').disabled = !recordings.length; $('#source-link').href = detail.source; $('#source-link').hidden = false;
@@ -148,6 +152,7 @@ const playerSizeButtons = [...document.querySelectorAll('.player')].map(player =
 });
 function updatePlayerSize() {
   document.documentElement.classList.toggle('player-compact', playerCompact);
+  if (!playerCompact) document.querySelectorAll('.player:not([hidden]) .player-heading, .player:not([hidden]) .volume, .player:not([hidden]) #worship-original').forEach(node => HymnMotion.rise(node, 60));
   for (const button of playerSizeButtons) {
     button.textContent = playerCompact ? '⌃' : '⌄';
     button.title = playerCompact ? 'Expand player' : 'Shrink player';
@@ -157,3 +162,4 @@ function updatePlayerSize() {
 }
 updatePlayerSize();
 render(); loadCatalog();
+HymnMotion.page($('#search-page'));

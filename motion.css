@@ -1,0 +1,44 @@
+.motion-word{display:inline-block;transform-origin:center bottom}
+button,a,.song-row,.search-box,.recording-field select{transition:background-color .16s,border-color .16s,box-shadow .18s,filter .16s,transform .18s}
+.result-arrow,.worship-launch-arrow{display:inline-block;transition:transform .18s}
+button:active:not(:disabled){transform:scale(.97)}
+.search-box:focus-within{transform:translateY(-1px)}
+.player{transition:height .22s cubic-bezier(.2,.75,.25,1)}
+.lyrics-panel{transition:bottom .22s cubic-bezier(.2,.75,.25,1)}
+#worship-song-view{transition:padding-bottom .22s cubic-bezier(.2,.75,.25,1)}
+.player-size-toggle{transition:background-color .16s,transform .2s}
+#repeat[aria-pressed=true],.favorite.active{color:#a47154}
+.verse{transition:background .18s,border-color .18s,color .18s}
+#toast:not([hidden]){animation:notice-in .2s ease-out}
+@keyframes notice-in{from{opacity:0;translate:0 8px}to{opacity:1;translate:0 0}}
+.search-section{margin-top:36px}
+.worship-launch{position:relative;margin:0 0 37px;padding:32px;gap:23px;min-height:210px;background:var(--green);color:#fffefa;border-color:var(--green);box-shadow:0 12px 32px #173f3514;overflow:hidden}
+.worship-launch .worship-launch-icon{display:grid;place-items:center;flex-shrink:0;width:80px;height:80px;background:#ffffff12;border:1px solid #ffffff26;border-radius:22px;font-size:47px;color:#e7d6a8;transition:transform .22s}
+.worship-launch .worship-launch-copy{flex:1;min-width:0}
+.worship-launch strong{font-family:'Libre Caslon Display',Georgia,serif;font-size:40px;font-weight:400;letter-spacing:-.5px}
+.worship-launch small{color:#d3decf;font-size:13px;line-height:1.7;margin-top:10px}
+.worship-launch .worship-launch-meta{display:block;color:#b9cdbb;font-size:10px;letter-spacing:1px;text-transform:uppercase;margin-bottom:10px}
+.worship-launch .worship-launch-action{display:inline-flex;gap:14px;align-items:center;font-size:12px;font-weight:600;margin-top:20px;color:#efe3c5}
+.worship-launch>span:last-child{margin-left:0;font-size:inherit}
+.search-section>h1{font-size:38px;margin-top:15px}
+@media(hover:hover){
+  button:hover:not(:disabled){transform:translateY(-2px)}
+  .song-row:hover{transform:translateY(-3px);border-color:#a6ba94;box-shadow:0 7px 20px #173f3509;background:#f1f5eb}
+  .song-row:hover .result-arrow,.worship-launch:hover .worship-launch-arrow{transform:translateX(3px)}
+  .worship-launch:hover{box-shadow:0 16px 36px #173f3525;transform:translateY(-3px)}
+  .worship-launch:hover .worship-launch-icon{transform:rotate(-5deg) scale(1.04)}
+  .back-button:hover{transform:translateX(-3px)}
+}
+@media(max-width:700px){
+  .search-section{margin-top:24px}
+  .worship-launch{padding:24px 20px;gap:15px;min-height:200px;margin-bottom:30px;align-items:flex-start}
+  .worship-launch .worship-launch-icon{width:48px;height:48px;border-radius:14px;font-size:31px;margin-top:25px}
+  .worship-launch strong{font-size:32px}
+  .worship-launch small{font-size:12px}
+  .worship-launch .worship-launch-meta{font-size:9px;letter-spacing:.5px}
+  .search-section>h1{font-size:31px}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  button:hover:not(:disabled),button:active:not(:disabled),.song-row:hover,.search-box:focus-within,.worship-launch:hover .worship-launch-icon{transform:none}
+}
