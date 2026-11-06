@@ -92,7 +92,13 @@ def lyrics_for(track, cache):
             # Local playback always works independently of lyric-source availability.
             pass
     if track['id'] == '1':
-        sections.append({'title': 'Glory to the Father', 'verses': [], 'source': ''})
+        sections.append({
+            'title': 'Glory to the Father',
+            'verses': ['Glory be to the Father,\nand to the Son,\nand to the Holy Ghost;\n'
+                       'As it was in the beginning,\nis now, and ever shall be,\n'
+                       'world without end.\nAmen, Amen.'],
+            'source': 'https://adventisthymns.com/en/1985/lyrics/660/glory-be-to-the-father',
+        })
     return {'id': track['id'], 'title': track['title'], 'sections': sections}
 
 
