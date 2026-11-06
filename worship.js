@@ -44,7 +44,7 @@
     if (songs.length) return;
     $('#worship-list-status').textContent = 'Loading your recordings…';
     try {
-      songs = (await fetchJSON(new URL('data/worship.json', document.baseURI))).songs;
+      songs = (await fetchJSON(new URL('data/worship.json?v=2', document.baseURI))).songs;
       renderList(); $('#worship-list-status').textContent = '';
     } catch {
       $('#worship-list-status').replaceChildren(document.createTextNode('Could not load the worship program. '));
